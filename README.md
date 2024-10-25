@@ -13,6 +13,7 @@ Before you begin, ensure you have met the following requirements:
   npm install -g react-native-cli
 - **Android Studio**: [Download and install Android Studio](https://reactnative.dev/docs/set-up-your-environment) and setup an emulator.
 ## Getting Started
+- [Init and start server](https://github.com/xadleyps/projects/tree/main/server#readme)
 - Once you have Yarn, install the project dependencies by running:
   ```bash
   yarn install
