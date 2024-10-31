@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import projectsReducer from './reducers/projectsReducer';
 import { useDispatch } from 'react-redux';
 
-const store = configureStore({
+export const rootReducer = {
   reducer: {
     projects: projectsReducer,
   },
-});
+}
+
+const store = configureStore(rootReducer);
 
 export default store;
 

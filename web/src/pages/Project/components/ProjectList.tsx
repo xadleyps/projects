@@ -55,6 +55,7 @@ const ProjectList: React.FC = () => {
 
     const renderItem = (item: Project) => (
         <ProjectItem
+            key={item.id}
             project={item}
             handleDelete={handleDelete}
             handleEdit={openModalForEdit}

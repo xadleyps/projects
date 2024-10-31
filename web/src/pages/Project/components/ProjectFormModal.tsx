@@ -82,8 +82,8 @@ const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
                     <Input.TextArea rows={4} placeholder="Enter project description" />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" onClick={handleSubmit} loading={loading}>
-                        {projectId ? 'Save Changes' : 'Add Project'}
+                    <Button type="primary" onClick={handleSubmit} loading={loading} data-testid={projectId ? 'edit-project-button' : 'add-project-button'}>
+                        {projectId ? 'Save Changes' : 'Add'}
                     </Button>
                     <Button onClick={onClose} style={{ marginLeft: '8px' }}>
                         Cancel

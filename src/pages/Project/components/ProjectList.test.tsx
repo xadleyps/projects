@@ -14,9 +14,9 @@ const projects: Project[] = [
 describe('ProjectList', () => {
   it('renders a list of projects', () => {
     const initialState = {
-        projects: projects,
-            currentPage: 1,
-            totalPages: 1,
+      projects: projects,
+      currentPage: 1,
+      totalPages: 1,
     }
     store.dispatch({ type: FETCH_PROJECTS_SUCCESS, payload: initialState });
     const { getByText } = render(
@@ -33,9 +33,9 @@ describe('ProjectList', () => {
 
   it('renders empty state when no projects are provided', () => {
     const initialState = {
-        projects: [],
-            currentPage: 1,
-            totalPages: 1,
+      projects: [],
+      currentPage: 1,
+      totalPages: 1,
     }
     store.dispatch({ type: FETCH_PROJECTS_SUCCESS, payload: initialState });
 

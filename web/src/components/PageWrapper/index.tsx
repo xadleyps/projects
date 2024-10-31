@@ -1,16 +1,37 @@
-import React from 'react';
-import { Layout, Menu, Typography, Space } from 'antd';
-import { HomeOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/icons';
-import './style.css'; // Importing the CSS file
+import React, { useState, useEffect } from 'react';
+import { Layout, Space, Button } from 'antd';
+import { UpOutlined } from '@ant-design/icons';
+import './style.css';
 
 const { Header, Content, Footer } = Layout;
-const { Title } = Typography;
 
 interface PageWrapperProps {
   children: React.ReactNode;
 }
 
 const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <Layout className="page-wrapper">
       <Header className="header">
@@ -28,6 +49,16 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
       </Content>
 
       <Footer className="footer">Demo ©2024</Footer>
+
+      {showScrollTop && (
+        <Button
+          type="primary"
+          shape="circle"
+          icon={<UpOutlined />}
+          onClick={scrollToTop}
+          className="scroll-to-top"
+        />
+      )}
     </Layout>
   );
 };
