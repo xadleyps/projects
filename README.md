@@ -18,6 +18,7 @@ bundle install
 ```
 * Run this command to init db (100 items, can change the amount here `server/db/seeds.rb`
 ```
+rails db:migrate
 rails db:seed
 ```
 * Run this command to start server
