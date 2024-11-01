@@ -31,56 +31,60 @@ const ProjectList: React.FC = () => {
         }
     }, [dispatch, isLoading, currentPage, totalPages]);
 
-    const openModalForAdd = () => {
+    const openModalForAdd = useCallback(() => {
         setSelectedProjectId(undefined);
         setModalVisible(true);
-    };
+    }, []);
 
-    const openModalForEdit = (projectId?: number) => {
-        if (!projectId) return;
-        setSelectedProjectId(projectId);
-        setModalVisible(true);
-    };
+    const openModalForEdit = useCallback((projectId?: number) => {
+        if (projectId !== undefined) {
+            setSelectedProjectId(projectId);
+            setModalVisible(true);
+        }
+    }, []);
 
-    const handleDelete = (projectId?: number) => {
-        if (!projectId) return;
-        Modal.confirm({
-            title: 'Confirm Delete',
-            content: 'Are you sure you want to delete this project?',
-            okText: 'Yes',
-            cancelText: 'No',
-            onOk: () => dispatch(deleteProject(projectId)),
-        });
-    };
+    const handleDelete = useCallback((projectId?: number) => {
+        if (projectId !== undefined) {
+            Modal.confirm({
+                title: 'Confirm Delete',
+                content: 'Are you sure you want to delete this project?',
+                okText: 'Yes',
+                cancelText: 'No',
+                onOk: () => dispatch(deleteProject(projectId)),
+            });
+        }
+    }, [dispatch]);
 
-    const renderItem = (item: Project) => (
-        <ProjectItem
-            key={item.id}
-            project={item}
-            handleDelete={handleDelete}
-            handleEdit={openModalForEdit}
-        />
+    const renderItem = useCallback(
+        (item: Project) => (
+            <ProjectItem
+                key={item.id}
+                project={item}
+                handleDelete={handleDelete}
+                handleEdit={openModalForEdit}
+            />
+        ),
+        [handleDelete, openModalForEdit]
     );
 
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
             const target = entries[0];
-            if (target.isIntersecting) {
+            if (target.isIntersecting && !isFetching) {
                 setIsFetching(true);
                 loadMoreProjects();
             }
         },
-        [loadMoreProjects]
+        [isFetching, loadMoreProjects]
     );
 
     useEffect(() => {
-        const option = {
+        const observerOptions = {
             root: null,
             rootMargin: '20px',
             threshold: 1.0,
         };
-
-        const observer = new IntersectionObserver(handleObserver, option);
+        const observer = new IntersectionObserver(handleObserver, observerOptions);
         if (observerRef.current) observer.observe(observerRef.current);
 
         return () => {
@@ -94,13 +98,16 @@ const ProjectList: React.FC = () => {
 
     return (
         <>
-            <Button containerStyle={{ marginBottom: 20 }} type="primary" onClick={openModalForAdd}>Add Project</Button>
+            <Button containerStyle={{ marginBottom: 20 }} type="primary" onClick={openModalForAdd}>
+                Add Project
+            </Button>
             <List
                 grid={{ gutter: 16, column: 1 }}
                 dataSource={projects}
                 renderItem={renderItem}
+                loading={isLoading && currentPage === 1}
             />
-            <div ref={observerRef} style={{ display: isLoading ? 'none' : 'block' }}>
+            <div ref={observerRef} style={{ display: isFetching ? 'block' : 'none' }}>
                 {isFetching && <Spin size="large" />}
             </div>
             <ProjectFormModal

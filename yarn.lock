@@ -4019,6 +4019,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.debounce@npm:^4.0.9":
+  version: 4.0.9
+  resolution: "@types/lodash.debounce@npm:4.0.9"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 8183a152e01928e3b97ca773f6ae6038b8695e76493ba8bf6b743ec143948a62294fbc9d49fa4a78b52265b3ba4892ef57534e0c13d04aa0f111671b5a944feb
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.17.13
+  resolution: "@types/lodash@npm:4.17.13"
+  checksum: d0bf8fbd950be71946e0076b30fd40d492293baea75f05931b6b5b906fd62583708c6229abdb95b30205ad24ce1ed2f48bc9d419364f682320edd03405cc0c7e
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:^1":
   version: 1.3.5
   resolution: "@types/mime@npm:1.3.5"
@@ -18118,11 +18134,13 @@ __metadata:
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0
     "@types/jest": ^27.5.2
+    "@types/lodash.debounce": ^4.0.9
     "@types/node": ^16.18.116
     "@types/react": ^18.3.12
     "@types/react-dom": ^18.3.1
     antd: ^5.21.6
     jest-watch-typeahead: ^2.2.2
+    lodash.debounce: ^4.0.8
     react: ^18.3.1
     react-dom: ^18.3.1
     react-redux: ^9.1.2
